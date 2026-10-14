@@ -56,9 +56,9 @@ ctx.setShadow(offset: CGSize(width: 0, height: -10), blur: 22, color: color(8, 3
 ctx.setFillColor(color(255, 255, 255))
 let tri = CGMutablePath()
 let r: CGFloat = 150
-tri.move(to: CGPoint(x: c.x - r * 0.9 + 10, y: c.y + r * 1.05))
-tri.addLine(to: CGPoint(x: c.x + r * 0.9 + 10, y: c.y))
-tri.addLine(to: CGPoint(x: c.x - r * 0.9 + 10, y: c.y - r * 1.05))
+tri.move(to: CGPoint(x: c.x - r * 0.9 + 38, y: c.y + r * 1.05))
+tri.addLine(to: CGPoint(x: c.x + r * 0.9 + 38, y: c.y))
+tri.addLine(to: CGPoint(x: c.x - r * 0.9 + 38, y: c.y - r * 1.05))
 tri.closeSubpath()
 ctx.addPath(tri)
 ctx.fillPath()
