@@ -20,6 +20,11 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/MarshallNickolauson/ClipCraft/raw/main/ClipCraft.dmg"><b>Download for macOS</b></a> ·
+  <a href="CHANGELOG.md">Changelog</a>
+</p>
+
+<p align="center">
   <a href="#what-it-does">Features</a> ·
   <a href="#install">Install</a> ·
   <a href="#connect-claude">Connect Claude</a> ·
@@ -32,7 +37,7 @@
 
 <br>
 
-> A sibling of [ScreenCraft](../ScreenCraft): same Rust-first, no-ffmpeg, everything-on-your-Mac approach,
+> A sibling of [ScreenCraft](https://github.com/MarshallNickolauson/ScreenCraft): same Rust-first, no-ffmpeg, everything-on-your-Mac approach,
 > same editor layout, aimed at a different job: Sunday service in, a dozen shareable shorts out.
 
 ## What it does
@@ -76,10 +81,21 @@ does, and lets Claude (or its own scorer) suggest the 5–10 moments that work o
 
 ### macOS
 
-Requires macOS 13 or newer; developed and tested on Apple silicon.
+Download [`ClipCraft.dmg`](https://github.com/MarshallNickolauson/ClipCraft/raw/main/ClipCraft.dmg) from the root of this
+repository, open it and drag **ClipCraft** onto **Applications**. The app is only ad-hoc signed (not
+notarised), so the first time you open it use right-click → **Open**.
+
+Requires macOS 13 (Ventura) or newer; developed and tested on Apple silicon.
+
+**Permissions.** ClipCraft needs none of the privacy permissions ScreenCraft does (no screen recording,
+camera or microphone). macOS may ask once for access to the folder your video lives in (Desktop,
+Documents, Downloads or Movies); allow it so the video can be read and clips saved.
+
+### Build from source (macOS)
 
 ```bash
-git clone <this repository> ClipCraft && cd ClipCraft
+git clone https://github.com/MarshallNickolauson/ClipCraft.git
+cd ClipCraft
 ./scripts/bundle.sh --install     # builds a release app and copies it to ~/Applications
 open ~/Applications/ClipCraft.app
 ```
