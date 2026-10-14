@@ -73,7 +73,7 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 #clipList { overflow: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
 .card { position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr) 26px; gap: 10px; padding: 9px; border-radius: 10px; background: var(--panel-2); border: 1px solid transparent; cursor: pointer; }
 .card:hover { border-color: var(--line-2); }
-.card.sel { border-color: var(--accent); background: #16243a; }
+.card.active { border-color: var(--accent); background: #16243a; }
 .card.off { opacity: .55; }
 .card.fresh { animation: fresh 1.6s ease-out; }
 @keyframes fresh { from { box-shadow: 0 0 0 2px var(--accent-2), 0 0 24px rgba(59,130,196,.5); } to { box-shadow: 0 0 0 0 transparent; } }

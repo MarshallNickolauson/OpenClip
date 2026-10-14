@@ -25,6 +25,7 @@
 </p>
 
 <p align="center">
+  <a href="#screenshots">Screenshots</a> ·
   <a href="#what-it-does">Features</a> ·
   <a href="#install">Install</a> ·
   <a href="#connect-claude">Connect Claude</a> ·
@@ -39,6 +40,33 @@
 
 > A sibling of [ScreenCraft](https://github.com/MarshallNickolauson/ScreenCraft): same Rust-first, no-ffmpeg, everything-on-your-Mac approach,
 > same editor layout, aimed at a different job: Sunday service in, a dozen shareable shorts out.
+
+## Screenshots
+
+The editor, with Claude's suggestions in the list on the left, the 9:16 preview in the middle and the
+clip's timeline below. The orange bands on the words track are the silences jump cuts will remove.
+
+![The editor](docs/screenshots/editor.jpg)
+
+Caption looks, size, position and the spoken-word colour:
+
+![Captions](docs/screenshots/captions.jpg)
+
+Framing: who the camera follows, smoothness, zoom, nudge and keyframes:
+
+![Framing](docs/screenshots/framing.jpg)
+
+Export, with the picked clips, size and codec:
+
+![Export](docs/screenshots/export.jpg)
+
+Connecting Claude over the local MCP server:
+
+![Connect Claude](docs/screenshots/connect-claude.jpg)
+
+The home screen: drop a video, pick a transcription model, reopen a project.
+
+![Home](docs/screenshots/home.jpg)
 
 ## What it does
 

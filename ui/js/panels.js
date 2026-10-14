@@ -44,7 +44,7 @@ export function renderList() {
   }
   for (const c of items) {
     const ex = S.export[c.id];
-    const card = h('div', { class: `card${c.id === S.sel ? ' sel' : ''}${c.picked ? '' : ' off'}${S.fresh.has(c.id) ? ' fresh' : ''}`, 'data-id': c.id },
+    const card = h('div', { class: `card${c.id === S.sel ? ' active' : ''}${c.picked ? '' : ' off'}${S.fresh.has(c.id) ? ' fresh' : ''}`, 'data-id': c.id },
       h('div', { class: 'thumb', style: S.thumbs[c.id] ? `background-image:url("${S.thumbs[c.id].url}")` : '' },
         h('span', { class: 'dur' }, secs(c.endMs - c.startMs))),
       h('div', { class: 'meta' },
@@ -111,15 +111,17 @@ export function renderPanel() {
   panel.scrollTop = y;
 }
 
+const put = (root, ...kids) => root.append(...kids.filter((k) => k != null && k !== false));
+
 function noClip(root) {
-  root.append(h('p', { class: 'hint' }, 'Select a clip in the list to edit it.'));
+  put(root, h('p', { class: 'hint' }, 'Select a clip in the list to edit it.'));
 }
 
 // ───────── clip tab
 function tabClip(root) {
   const c = clip();
   if (!c) return noClip(root);
-  root.append(
+  put(root, 
     h('h3', {}, 'Title'),
     h('input', { type: 'text', value: c.title, onchange: (e) => editClip(c.id, (x) => { x.title = e.target.value.trim() || 'Untitled'; }) }),
     c.why ? h('p', { class: 'hint' }, c.why) : null,
@@ -254,7 +256,7 @@ function tabCaptions(root) {
   const st = S.project.style;
   const c = clip();
   const setStyle = (patch, key) => { mutate((p) => Object.assign(p.style, patch), key || 'style'); emit('captionschange'); };
-  root.append(
+  put(root, 
     c ? h('div', { class: 'row-t' }, h('div', {}, 'Captions on this clip', h('small', {}, 'Burned in at export')),
       toggle(c.captions, () => { editClip(c.id, (x) => { x.captions = !x.captions; }); emit('captionschange'); renderPanel(); })) : null,
     h('h3', {}, 'Look (all clips)'),
@@ -277,7 +279,7 @@ function tabFraming(root) {
   const f = c.framing;
   const set = (fn, key) => { editClip(c.id, (x) => fn(x.framing), key || 'fr-' + c.id); emit('framechange'); };
   const hasFaces = S.project.faces;
-  root.append(
+  put(root, 
     h('div', { class: 'row-t' }, h('div', {}, 'Follow the speaker', h('small', {}, hasFaces ? 'Camera glides to keep the face centred' : 'Face tracking is still running…')),
       toggle(f.follow, () => { set((x) => { x.follow = !x.follow; }); renderPanel(); })),
     f.follow ? field('Who to follow', null, seg([['largest', 'Closest'], ['left', 'Left'], ['right', 'Right']], S.project.subject,
@@ -301,7 +303,7 @@ function tabExport(root) {
   const p = S.project;
   const items = picked();
   const total = items.reduce((a, c) => a + (c.endMs - c.startMs), 0);
-  root.append(
+  put(root, 
     h('h3', {}, 'Output'),
     h('div', { class: 'field' }, h('label', {}, h('span', {}, 'Folder')),
       h('div', { class: 'path' }, p.export.dir || '~/Movies/ClipCraft'),
