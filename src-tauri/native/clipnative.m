@@ -1,3 +1,4 @@
+#import <AppKit/AppKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreImage/CoreImage.h>
 #import <CoreText/CoreText.h>
@@ -18,6 +19,32 @@ static char *dup_json(id obj) {
 static NSString *err_json(NSString *m) { return [NSString stringWithFormat:@"{\"error\":%@}", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:@[m] options:0 error:nil] encoding:NSUTF8StringEncoding]]; }
 
 void cn_free(void *p) { free(p); }
+
+// AppKit keeps re-inserting AutoFill into any menu titled "Edit"; remove it whenever a menu opens.
+static void strip_autofill(void) {
+    NSMenu *main = NSApp.mainMenu;
+    for (NSMenuItem *top in main.itemArray) {
+        if (![top.title isEqualToString:@"Edit"]) continue;
+        NSMenu *m = top.submenu;
+        for (NSInteger i = (NSInteger)m.numberOfItems - 1; i >= 0; i--) {
+            NSMenuItem *it = [m itemAtIndex:i];
+            NSString *t = it.title;
+            if ([t isEqualToString:@"AutoFill"] || [t hasPrefix:@"Start Dictation"] || [t hasPrefix:@"Emoji"]) [m removeItemAtIndex:i];
+        }
+        // drop a trailing separator left behind
+        while (m.numberOfItems > 0 && [m itemAtIndex:m.numberOfItems - 1].isSeparatorItem) [m removeItemAtIndex:m.numberOfItems - 1];
+    }
+}
+
+void cn_trim_edit_menu(void) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSMenuDidBeginTrackingNotification object:nil queue:nil usingBlock:^(NSNotification *n) { strip_autofill(); }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSApplicationDidBecomeActiveNotification object:nil queue:nil usingBlock:^(NSNotification *n) { strip_autofill(); }];
+    dispatch_async(dispatch_get_main_queue(), ^{ strip_autofill(); });
+    NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
+    [d setBool:YES forKey:@"NSDisabledDictationMenuItem"];
+    [d setBool:YES forKey:@"NSDisabledCharacterPaletteMenuItem"];
+    [d setBool:NO forKey:@"NSAutoFillHeuristicControllerEnabled"];
+}
 
 static AVURLAsset *open_asset(const char *path) {
     NSURL *u = [NSURL fileURLWithPath:[NSString stringWithUTF8String:path]];

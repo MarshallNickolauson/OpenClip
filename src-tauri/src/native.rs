@@ -22,6 +22,12 @@ extern "C" {
     fn cn_thumbnail(path: *const c_char, t_ms: f64, out_h: c_int, cx: f64, out: *const c_char) -> *mut c_char;
     fn cn_export(job: *const c_char, cb: Option<extern "C" fn(f64, *mut c_void) -> c_int>, ud: *mut c_void) -> *mut c_char;
     fn cn_free(p: *mut c_void);
+    fn cn_trim_edit_menu();
+}
+
+/// This is an editor, not a form: drop the system's AutoFill / Dictation / Emoji items from Edit.
+pub fn trim_edit_menu() {
+    unsafe { cn_trim_edit_menu() }
 }
 
 /// Progress sink: gets 0..100, returns `true` to cancel.

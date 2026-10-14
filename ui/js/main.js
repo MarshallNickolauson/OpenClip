@@ -350,6 +350,7 @@ listen('close-requested', async () => {
 });
 
 // ═════════════════════════ chrome
+$$('.ext-link').forEach((b) => (b.onclick = () => window.__TAURI__.opener.openUrl(b.dataset.url)));
 $('#btnHome').onclick = () => { showHome(); };
 $('#btnUndo').onclick = undo;
 $('#btnRedo').onclick = redo;

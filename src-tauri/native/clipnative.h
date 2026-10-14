@@ -22,5 +22,8 @@ char *cn_thumbnail(const char *path, double t_ms, int out_h, double cx, const ch
 // Render one clip. `job` is JSON (see export.rs). Returns NULL on success, else an error string.
 char *cn_export(const char *job, cn_progress cb, void *ud);
 
+// Turns off AppKit's Dictation / Emoji & Symbols / AutoFill additions to the Edit menu.
+void cn_trim_edit_menu(void);
+
 void cn_free(void *p);
 #endif

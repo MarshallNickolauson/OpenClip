@@ -17,6 +17,7 @@ fn main() {
         std::process::exit(code);
     }
 
+    native::trim_edit_menu();
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())

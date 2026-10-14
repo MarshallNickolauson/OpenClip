@@ -194,3 +194,7 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 .prog .st { display: grid; gap: 6px; }
 .prog .st .l { display: flex; justify-content: space-between; color: #c6cae2; }
 .prog .st.idle { opacity: .45; }
+
+.ext-link { -webkit-app-region: no-drag; color: #a9b0cc; }
+.ext-link svg { width: 17px; height: 17px; fill: currentColor; stroke: none; }
+.ext-link:nth-of-type(2) { margin-right: 4px; }
