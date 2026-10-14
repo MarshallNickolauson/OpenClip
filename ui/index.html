@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ClipCraft</title>
+<link rel="stylesheet" href="theme.css" />
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+
+<!-- ───────── home ───────── -->
+<section id="home">
+  <div class="drag" data-tauri-drag-region></div>
+  <div class="home-wrap">
+    <div class="brand"><img src="icon.png" alt=""><div><h1>ClipCraft</h1><p>Long talks in, vertical clips out.</p></div></div>
+
+    <div id="drop" class="drop">
+      <svg viewBox="0 0 24 24" style="width:34px;height:34px"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 9.5l3 2.5-3 2.5z"/></svg>
+      <b>Drop a video here</b>
+      <span class="muted">16:9 MP4 or MOV: a service, a talk, a podcast</span>
+      <button class="primary" id="btnChoose">Choose video…</button>
+    </div>
+
+    <div class="home-row">
+      <label class="sel">Transcription
+        <select id="selModel"></select>
+      </label>
+      <span class="muted" id="modelHint">Runs on this Mac. Nothing is uploaded.</span>
+    </div>
+
+    <h3 class="sect">Projects</h3>
+    <div id="recent" class="recent"></div>
+  </div>
+</section>
+
+<!-- ───────── editor ───────── -->
+<section id="editor" hidden>
+  <header id="top" data-tauri-drag-region>
+    <div class="traffic-space"></div>
+    <button class="projects-btn" id="btnHome" title="Back to projects"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg><span>Projects</span></button>
+    <div class="title" id="title" title="Click to rename">Untitled</div>
+    <span id="faceChip" class="chip" hidden></span>
+    <div class="top-right">
+      <button class="pill" id="btnClaude" title="Connect Claude (MCP)"><span class="dot" id="claudeDot"></span><span id="claudeLabel">Claude</span></button>
+      <button class="pill small" id="btnSave" title="Save (⌘S)" disabled>Save</button>
+      <button class="icon-btn" id="btnUndo" title="Undo (⌘Z)"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg></button>
+      <button class="icon-btn" id="btnRedo" title="Redo (⇧⌘Z)"><svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/></svg></button>
+      <button class="primary" id="btnExport" title="Export picked clips (⌘E)"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span id="exportLabel">Export</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <aside id="clips">
+      <div class="clips-head">
+        <b id="clipsCount">Clips</b>
+        <span class="spacer"></span>
+        <div class="seg small" id="sortSeg"><button data-s="time" class="on">Time</button><button data-s="score">Best</button></div>
+        <button class="icon-btn" id="btnAddClip" title="New clip at the playhead (N)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      </div>
+      <div id="clipList"></div>
+    </aside>
+
+    <section id="stage">
+      <div id="stageWrap">
+        <div id="phone">
+          <video id="v" playsinline preload="auto"></video>
+          <div id="cap"></div>
+          <div id="guides" hidden><i></i></div>
+          <div id="vmsg" hidden></div>
+        </div>
+      </div>
+      <div id="transport">
+        <span id="tCur" class="tm">0:00.0</span>
+        <button class="icon-btn" id="btnStart" title="Restart clip (Q)"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 6l-9 6 9 6z"/></svg></button>
+        <button class="play" id="btnPlay" title="Play / pause (Space)">
+          <svg id="icoPlay" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>
+          <svg id="icoPause" viewBox="0 0 24 24" hidden><path d="M7 4h4v16H7zM13 4h4v16h-4z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnNext" title="Next clip (↓)"><svg viewBox="0 0 24 24"><path d="M18 5v14M6 6l9 6-9 6z"/></svg></button>
+        <span id="tDur" class="tm">0:00.0</span>
+        <span class="vsep"></span>
+        <button class="pill small" id="btnLoop" title="Loop (L)">Loop</button>
+        <button class="pill small" id="btnAuto" title="Play automatically when a clip is selected">Auto-play</button>
+        <button class="pill small" id="btnCuts" title="Cut silences in this clip (T)">Jump cuts</button>
+        <button class="pill small" id="btnCaps" title="Captions on / off (C)">Captions</button>
+        <button class="pill small" id="btnGuides" title="Platform safe zones">Guides</button>
+      </div>
+    </section>
+
+    <aside id="side">
+      <nav id="rail"></nav>
+      <div id="panel"></div>
+    </aside>
+  </main>
+
+  <section id="timeline">
+    <div id="splitV" title="Drag to resize the timeline"></div>
+    <div id="tlTools">
+      <button class="pill small" id="btnSetIn" title="Set clip start at playhead ([)">Set in</button>
+      <button class="pill small" id="btnSetOut" title="Set clip end at playhead (])">Set out</button>
+      <span class="muted" id="tlHint">Drag the clip edges to trim · click the framing track to add a keyframe · ⌘-scroll to zoom</span>
+      <span class="spacer"></span>
+      <div class="tl-zoom">
+        <button class="icon-btn" id="tlZoomOut" title="Zoom out"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M21 21l-5-5M8 11h6"/></svg></button>
+        <button class="icon-btn" id="tlZoomIn" title="Zoom in"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></button>
+        <button class="pill small" id="tlFit" title="Fit the clip">Fit</button>
+        <button class="pill small" id="tlWide" title="Show the surrounding talk">Context</button>
+      </div>
+    </div>
+    <canvas id="overview"></canvas>
+    <canvas id="tl"></canvas>
+  </section>
+</section>
+
+<!-- ───────── overlays ───────── -->
+<div id="modal" hidden></div>
+<div id="toast" hidden></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

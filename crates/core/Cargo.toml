@@ -1,0 +1,14 @@
+[package]
+name = "clipcraft-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Transcript, clip scoring, face-follow camera, captions and MCP server for ClipCraft"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[[bin]]
+name = "clipcraft-mcp"
+path = "src/bin/clipcraft-mcp.rs"
