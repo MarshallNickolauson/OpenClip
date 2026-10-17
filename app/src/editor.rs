@@ -80,7 +80,7 @@ impl App {
         self.icons.paint(ui, "back", Rect::from_min_size(pos2(pr.left() + 6.0, pr.center().y - 8.0), vec2(16.0, 16.0)), if resp.hovered() { Color32::WHITE } else { hex(0xcdd2ea) });
         label(ui, pos2(pr.left() + 26.0, pr.center().y), Align2::LEFT_CENTER, "Projects", font(13.0), if resp.hovered() { Color32::WHITE } else { hex(0xcdd2ea) });
         if resp.clicked() {
-            self.request_leave(ctx, After::Home);
+            self.pending_leave = Some(After::Home);
         }
         // title
         let (title, dirty, editing) = {

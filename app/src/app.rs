@@ -79,6 +79,8 @@ pub struct App {
     pub phone_px: (usize, usize),
     pub app_icon: Option<egui::TextureHandle>,
     pub pending_export: bool,
+    /// Leave requests raised mid-draw; handled once the frame is done so the editor is not torn down under itself.
+    pub pending_leave: Option<After>,
 }
 
 impl App {
@@ -105,6 +107,7 @@ impl App {
             phone_px: (540, 960),
             app_icon: None,
             pending_export: false,
+            pending_leave: None,
         };
         if let Ok(img) = image::load_from_memory(include_bytes!("../icons/icon.png")) {
             let rgba = img.to_rgba8();
@@ -566,6 +569,9 @@ impl eframe::App for App {
         }
         self.modal_ui(ctx);
         self.toast_ui(ctx);
+        if let Some(after) = self.pending_leave.take() {
+            self.request_leave(ctx, after);
+        }
         if std::mem::take(&mut self.pending_export) {
             self.run_export(ctx);
         }
