@@ -2,6 +2,7 @@
   "version": "0.2.0",
   "file": "OpenClip_0.2.0.dmg",
   "url": "https://github.com/MarshallNickolauson/OpenClip/raw/main/OpenClip_0.2.0.dmg",
+  "mirror": "https://getopenclip.pages.dev/downloads/OpenClip_0.2.0.dmg",
   "notes": [
     "Native rewrite in egui",
     "Renamed from ClipCraft to OpenClip",
