@@ -222,9 +222,11 @@ impl App {
         let fresh = self.ed.as_ref().unwrap().fresh.clone();
         let mut want = Vec::new();
         egui::ScrollArea::vertical().auto_shrink([false, false]).id_salt("clip_scroll").show(&mut child, |ui| {
+            // content coordinates start at the cursor, which already accounts for the scroll offset
+            let top0 = ui.cursor().min.y;
             let x0 = list.left() + 10.0;
             let w = list.width() - 20.0;
-            let mut y = list.top() + 10.0;
+            let mut y = top0 + 10.0;
             let card_h = 118.0;
             for c in &items {
                 let card = Rect::from_min_size(pos2(x0, y), vec2(w, card_h));
@@ -300,8 +302,10 @@ impl App {
                 cr.clone().on_hover_text("Include in export (X)");
                 // dismiss
                 let xb = Rect::from_min_size(pos2(card.right() - 6.0 - 22.0, card.bottom() - 6.0 - 22.0), vec2(22.0, 22.0));
-                let xr = if resp.hovered() || cr.hovered() { Some(ui.interact(xb, Id::new(("dis", &c.id)), Sense::click())) } else { None };
-                if let Some(xr) = &xr {
+                let over_card = ui.rect_contains_pointer(card);
+                // always registered, so hovering the button itself does not make it vanish before the click lands
+                let xr = Some(ui.interact(xb, Id::new(("dis", &c.id)), Sense::click()));
+                if let (Some(xr), true) = (&xr, over_card) {
                     if xr.hovered() {
                         fill(ui, xb, 6, RAISE);
                     }
@@ -316,7 +320,7 @@ impl App {
                 }
                 y += card_h + 8.0;
             }
-            ui.allocate_rect(Rect::from_min_max(pos2(list.left(), list.top()), pos2(list.right(), y + 2.0)), Sense::hover());
+            ui.allocate_rect(Rect::from_min_max(pos2(list.left(), top0), pos2(list.right(), y + 2.0)), Sense::hover());
         });
         for c in want {
             self.want_thumb(ctx, &c);

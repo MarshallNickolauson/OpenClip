@@ -60,7 +60,8 @@ impl App {
 
         let mut child = ui.new_child(egui::UiBuilder::new().max_rect(scroll_rect));
         egui::ScrollArea::vertical().auto_shrink([false, false]).show(&mut child, |ui| {
-            let origin = pos2(left, scroll_rect.top() + 24.0);
+            let top0 = ui.cursor().min.y;
+            let origin = pos2(left, top0 + 24.0);
             let mut y = origin.y;
 
             // brand
@@ -164,26 +165,27 @@ impl App {
                     if p.source_missing {
                         label(ui, pos2(rect.left() + 16.0, yy), Align2::LEFT_CENTER, "Source video moved", font(12.0), hex(0xffb86b));
                     }
-                    if resp.hovered() {
+                    let over = ui.rect_contains_pointer(rect);
+                    {
                         let x = Rect::from_min_size(pos2(rect.right() - 32.0, rect.top() + 8.0), vec2(24.0, 24.0));
                         let xr = ui.interact(x, Id::new(("proj_x", i)), Sense::click());
-                        if xr.hovered() {
+                        if over && xr.hovered() {
                             fill(ui, x, 6, RAISE);
                         }
-                        self.icons.paint(ui, "x", Rect::from_center_size(x.center(), vec2(16.0, 16.0)), if xr.hovered() { hex(0xff8a97) } else { hex(0x9aa0bd) });
+                        if over {
+                            self.icons.paint(ui, "x", Rect::from_center_size(x.center(), vec2(16.0, 16.0)), if xr.hovered() { hex(0xff8a97) } else { hex(0x9aa0bd) });
+                        }
                         if xr.clicked() {
                             delete = Some((p.dir.clone(), p.title.clone()));
                         } else if resp.clicked() {
                             open = Some(p.dir.clone().into());
                         }
-                    } else if resp.clicked() {
-                        open = Some(p.dir.clone().into());
                     }
                 }
                 let rows = (self.home.projects.len() + cols - 1) / cols;
                 y += rows as f32 * (row_h + 12.0);
             }
-            ui.allocate_rect(Rect::from_min_max(pos2(left, scroll_rect.top()), pos2(left + wrap_w, y + 60.0)), Sense::hover());
+            ui.allocate_rect(Rect::from_min_max(pos2(left, top0), pos2(left + wrap_w, y + 60.0)), Sense::hover());
         });
 
         if let Some(p) = chosen {

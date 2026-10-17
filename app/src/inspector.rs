@@ -107,7 +107,7 @@ impl App {
         child.set_clip_rect(body.intersect(ui.clip_rect()));
         let tab = self.ed.as_ref().unwrap().tab;
         egui::ScrollArea::vertical().auto_shrink([false, false]).id_salt(("insp_scroll", tab as u8)).show(&mut child, |ui| {
-            let start = pos2(body.left() + 18.0, body.top() + 16.0);
+            let start = pos2(body.left() + 18.0, ui.cursor().min.y + 16.0);
             let mut col = Col { x: start.x, w: body.width() - 36.0, y: start.y, top: start.y };
             match tab {
                 Tab::Clip => self.tab_clip(ctx, ui, &mut col),
@@ -115,7 +115,7 @@ impl App {
                 Tab::Framing => self.tab_framing(ui, &mut col),
                 Tab::Export => self.tab_export(ctx, ui, &mut col),
             }
-            ui.allocate_rect(Rect::from_min_max(pos2(body.left(), body.top()), pos2(body.right(), col.y + 24.0)), Sense::hover());
+            ui.allocate_rect(Rect::from_min_max(pos2(body.left(), start.y - 16.0), pos2(body.right(), col.y + 24.0)), Sense::hover());
         });
     }
 
