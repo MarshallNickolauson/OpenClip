@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Export | OpenClip</title>
+<meta name="description" content="Batch export vertical clips as H.264 or HEVC at 1080x1920 or 720x1280.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<div class="wrap docs"><!--@docs-nav--><article class="prose">
+<h1>Export</h1>
+<p>Tick the clips you want (<kbd>X</kbd>), then press <kbd>⌘E</kbd> or open the export tab. Exports go to <code>~/Movies/OpenClip</code> by default.</p>
+<table><tr><th>Setting</th><th>Options</th></tr>
+<tr><td>Resolution</td><td>1080×1920 or 720×1280</td></tr>
+<tr><td>Video</td><td>H.264 or HEVC</td></tr>
+<tr><td>Audio</td><td>AAC</td></tr>
+<tr><td>Frame rate</td><td>Up to 30 fps</td></tr></table>
+<p>Encoding is done by the operating system's own encoders through AVFoundation and VideoToolbox, and captions are rendered with Core Image and CoreText. There is no ffmpeg and no openh264 in the app.</p>
+<p>As a measured data point, a 32-second clip exported in about 12 seconds (roughly 2 to 3× realtime) on an M-series Mac. Exports never carry a watermark.</p>
+</article></div>
+</main>
+<!--@footer-->
+</body>
+</html>

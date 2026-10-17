@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# Builds ClipCraft and packs it into dist/ClipCraft-<version>.dmg with a drag-to-
+# Builds OpenClip and packs it into dist/OpenClip_<version>.dmg with a drag-to-
 # Applications layout. Usage: ./scripts/dmg.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ./scripts/bundle.sh
 
-VERSION="$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' src-tauri/tauri.conf.json | head -1)"
-VOL="ClipCraft"
-OUT="dist/ClipCraft-${VERSION}.dmg"
-RW="dist/.ClipCraft-rw.dmg"
+VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)"
+VOL="OpenClip"
+OUT="dist/OpenClip_${VERSION}.dmg"
+RW="dist/.OpenClip-rw.dmg"
 STAGE="$(mktemp -d)/$VOL"
 mkdir -p "$STAGE"
-cp -R dist/ClipCraft.app "$STAGE/"
+cp -R dist/OpenClip.app "$STAGE/"
 ln -s /Applications "$STAGE/Applications"
 
 rm -f "$OUT" "$RW"
@@ -33,7 +33,7 @@ tell application "Finder"
     set opts to the icon view options of container window
     set arrangement of opts to not arranged
     set icon size of opts to 112
-    set position of item "ClipCraft.app" of container window to {150, 160}
+    set position of item "OpenClip.app" of container window to {150, 160}
     set position of item "Applications" of container window to {410, 160}
     close
     open
@@ -47,6 +47,9 @@ sync
 hdiutil detach -quiet "$MNT" || hdiutil detach -force -quiet "$MNT"
 hdiutil convert -quiet "$RW" -format UDZO -imagekey zlib-level=9 -o "$OUT"
 rm -f "$RW"
-# the repo keeps the current installer at its root under a fixed name
-cp "$OUT" ClipCraft.dmg
-echo "Built $OUT ($(du -h "$OUT" | cut -f1)) and copied it to ./ClipCraft.dmg"
+# the repo keeps the current installer at its root, always named OpenClip_<version>.dmg
+rm -f OpenClip_*.dmg ClipCraft.dmg OpenClip.dmg
+cp "$OUT" "OpenClip_${VERSION}.dmg"
+# keep the README's download link pointing at the current file
+sed -i '' -E "s#raw/main/OpenClip_[0-9.]+\.dmg#raw/main/OpenClip_${VERSION}.dmg#g; s#OpenClip_[0-9.]+\.dmg#OpenClip_${VERSION}.dmg#g" README.md 2>/dev/null || true
+echo "Built $OUT ($(du -h "$OUT" | cut -f1)) and copied it to ./OpenClip_${VERSION}.dmg"

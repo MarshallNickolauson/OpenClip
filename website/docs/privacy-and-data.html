@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your data | OpenClip</title>
+<meta name="description" content="What OpenClip stores and what, if anything, it sends.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<div class="wrap docs"><!--@docs-nav--><article class="prose">
+<h1>Your data</h1>
+<p>OpenClip is an offline desktop app. It has no accounts and no telemetry.</p>
+<table><tr><th>What</th><th>Where</th></tr>
+<tr><td>Projects (video reference, transcript, faces, clips)</td><td><code>~/OpenClip Projects</code></td></tr>
+<tr><td>Exports</td><td><code>~/Movies/OpenClip</code></td></tr>
+<tr><td>Caption model (optional)</td><td>App data folder, downloaded from Hugging Face on request</td></tr>
+<tr><td>Update check (optional)</td><td>A request to GitHub for the latest release</td></tr></table>
+<h2>Network use</h2>
+<p>Besides the optional model download and the optional update check, the app does not use the network. Transcription, face detection, clip scoring, captions and encoding all run on your Mac.</p>
+<h2>Claude</h2>
+<p>If you connect Claude, the assistant receives the clip candidates and any transcript text it asks for. That is handled by the assistant's own service. <b>Quick pick</b> keeps everything local. See <a href="/docs/connect-claude">Connect Claude</a>.</p>
+<h2>Other people's speech</h2>
+<p>Make sure you have the right to clip and publish what you import. See the <a href="/terms">terms</a> and the <a href="/privacy">privacy policy</a>.</p>
+</article></div>
+</main>
+<!--@footer-->
+</body>
+</html>

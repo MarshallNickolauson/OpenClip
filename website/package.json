@@ -1,0 +1,22 @@
+{
+  "name": "openclip-website",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name getopenclip --branch main --commit-dirty=true",
+    "prebuild": "node scripts/copy-downloads.mjs",
+    "predev": "node scripts/copy-downloads.mjs"
+  },
+  "devDependencies": {
+    "marked": "^18.1.1",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0"
+  }
+}

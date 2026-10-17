@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect Claude (MCP) | OpenClip</title>
+<meta name="description" content="Let Claude Desktop or Claude Code pick your clips through the local openclip-mcp server.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<div class="wrap docs"><!--@docs-nav--><article class="prose">
+<h1>Connect Claude (MCP)</h1>
+<p>OpenClip includes a small MCP server, <code>openclip-mcp</code>, inside the app bundle at <code>OpenClip.app/Contents/MacOS/</code>. It speaks stdio and is launched by Claude Desktop or Claude Code on your Mac. Nothing is hosted, and there is no account or API key.</p>
+<h2>Connect it</h2>
+<p>In OpenClip, click the <b>Claude</b> button, then either:</p>
+<ul><li><b>Add to Claude Desktop.</b> OpenClip merges the server into <code>claude_desktop_config.json</code> and keeps a <code>.bak</code> copy of the original. Restart Claude Desktop afterwards.</li>
+<li><b>Copy the command for Claude Code:</b></li></ul>
+<div class="cmd mcp-cmd"><code id="mcpCmd">claude mcp add openclip -- "/Applications/OpenClip.app/Contents/MacOS/openclip-mcp"</code><button type="button" class="cmd-copy" data-copy="#mcpCmd" aria-label="Copy command">Copy</button></div>
+<h2>Ask for clips</h2>
+<p>Open a transcribed project in OpenClip, then in Claude try:</p>
+<pre><code>Find the best 5-10 vertical clips in my open OpenClip project.</code></pre>
+<p>The server also provides a <code>find_clips</code> prompt that does the same thing. Claude saves its picks and they appear live in the app for you to preview, caption and export.</p>
+<h2>What Claude can call</h2>
+<table><tr><th>Tool</th><th>What it does</th></tr>
+<tr><td><code>get_candidates</code></td><td>About twenty pre-ranked, sentence-aligned moments, with their text. A few thousand tokens regardless of video length.</td></tr>
+<tr><td><code>get_transcript</code></td><td>The transcript, when the candidates look weak or you ask about a specific topic or time range.</td></tr>
+<tr><td><code>save_clips</code></td><td>Saves clips by sentence ids. They appear in the app as soon as they are saved.</td></tr>
+<tr><td><code>get_clips</code></td><td>Lists the clips in the open project.</td></tr>
+<tr><td><code>list_projects</code></td><td>Lists the projects it can see.</td></tr></table>
+<p>A typical run is about 3 to 5 thousand tokens in and under 1 thousand out, in two calls.</p>
+<h2>Privacy</h2>
+<p>The server runs locally. Claude receives the candidate text and any transcript it asks for, and that is handled under the assistant's own terms. Prefer to keep every word on your Mac? Use <b>Quick pick</b>, which scores moments locally. See <a href="/docs/privacy-and-data">your data</a>.</p>
+</article></div>
+</main>
+<!--@footer-->
+</body>
+</html>

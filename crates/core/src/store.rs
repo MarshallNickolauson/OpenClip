@@ -9,16 +9,26 @@ use crate::transcript::Transcript;
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 
-pub const EXT: &str = "clipcraft";
+pub const EXT: &str = "openclip";
+/// Folder extension used before the app was renamed; still read, never written.
+pub const OLD_EXT: &str = "clipcraft";
 
 pub fn home() -> PathBuf {
-    if let Ok(p) = std::env::var("CLIPCRAFT_HOME") {
-        if !p.is_empty() {
-            return PathBuf::from(p);
+    for var in ["OPENCLIP_HOME", "CLIPCRAFT_HOME"] {
+        if let Ok(p) = std::env::var(var) {
+            if !p.is_empty() {
+                return PathBuf::from(p);
+            }
         }
     }
     let h = std::env::var("HOME").unwrap_or_else(|_| ".".into());
-    PathBuf::from(h).join("ClipCraft Projects")
+    let new = PathBuf::from(&h).join("OpenClip Projects");
+    // the app used to be called ClipCraft: carry its projects over once
+    let old = PathBuf::from(&h).join("ClipCraft Projects");
+    if !new.exists() && old.exists() {
+        let _ = std::fs::rename(&old, &new);
+    }
+    new
 }
 
 pub fn project_file(dir: &Path) -> PathBuf {
@@ -101,7 +111,7 @@ pub fn list() -> Vec<Summary> {
     let Ok(rd) = std::fs::read_dir(home()) else { return out };
     for e in rd.flatten() {
         let dir = e.path();
-        if dir.extension().and_then(|s| s.to_str()) != Some(EXT) {
+        if !matches!(dir.extension().and_then(|s| s.to_str()), Some(EXT) | Some(OLD_EXT)) {
             continue;
         }
         let Ok(p) = load_project(&dir) else { continue };
@@ -133,7 +143,7 @@ pub fn list() -> Vec<Summary> {
 pub fn resolve(which: Option<&str>) -> Result<PathBuf, String> {
     let all = list();
     if all.is_empty() {
-        return Err("No ClipCraft projects yet. Open ClipCraft and drop a video in first.".into());
+        return Err("No OpenClip projects yet. Open OpenClip and drop a video in first.".into());
     }
     match which.map(str::trim).filter(|s| !s.is_empty()) {
         Some(q) => {

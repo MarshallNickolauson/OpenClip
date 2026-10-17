@@ -1,14 +1,14 @@
 [package]
-name = "clipcraft-core"
+name = "openclip-core"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Transcript, clip scoring, face-follow camera, captions and MCP server for ClipCraft"
+description = "Transcript, clip scoring, face-follow camera, captions and MCP server for OpenClip"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
 [[bin]]
-name = "clipcraft-mcp"
-path = "src/bin/clipcraft-mcp.rs"
+name = "openclip-mcp"
+path = "src/bin/openclip-mcp.rs"

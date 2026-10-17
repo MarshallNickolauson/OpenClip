@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting started | OpenClip</title>
+<meta name="description" content="Install OpenClip, import a video and choose a transcription model.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<div class="wrap docs"><!--@docs-nav--><article class="prose">
+<h1>Getting started</h1>
+<h2>Install</h2>
+<ol><li>Download <a href="/download">%DMG%</a>, open it, and drag OpenClip to Applications.</li>
+<li>OpenClip is ad-hoc signed and not notarised. The first time, <b>right-click the app and choose Open</b>, then confirm. (Or run <code>xattr -dr com.apple.quarantine /Applications/OpenClip.app</code> in Terminal.)</li></ol>
+<p>You need macOS 13 or later. OpenClip is tested on Apple silicon.</p>
+<h2>Import a video</h2>
+<p>Drop a long 16:9 video onto the window. OpenClip transcribes it on your Mac with whisper.cpp (using the Metal GPU, with word-level timestamps) while Apple Vision finds faces in parallel.</p>
+<h2>Choose a model</h2>
+<table><tr><th>Model</th><th>Use it when</th></tr>
+<tr><td>Fast (base.en)</td><td>You want the quickest pass.</td></tr>
+<tr><td>Balanced (small.en)</td><td>A good default for clear English speech.</td></tr>
+<tr><td>Best (large-v3-turbo)</td><td>You want the most accurate transcript.</td></tr></table>
+<p>The model is downloaded once from Hugging Face, only when you ask for it. After that, everything works offline. As a measured data point, a 75-minute 2 GB 720p sermon was transcribed and its faces found in about 8.5 minutes on an M-series Mac (transcription near 9× realtime on small.en).</p>
+<h2>Pick the clips</h2>
+<p>Ask <a href="/docs/connect-claude">Claude</a> to find clips, or use the built-in <b>Quick pick</b>. Then <a href="/docs/clips">preview, trim and tick</a> the ones you want, and <a href="/docs/export">export</a> them together.</p>
+<h2>Build from source</h2>
+<p>Install Rust (stable) and build from the repository at <a href="https://github.com/%REPO%" target="_blank" rel="noopener noreferrer">github.com/%REPO%</a>. See its README for the current build steps.</p>
+</article></div>
+</main>
+<!--@footer-->
+</body>
+</html>

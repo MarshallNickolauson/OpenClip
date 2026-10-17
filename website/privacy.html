@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy | OpenClip</title>
+<meta name="description" content="OpenClip collects no personal data and sets no cookies.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<div class="wrap"><article class="prose solo">
+<h1>Privacy Policy</h1>
+<p class="updated">Last updated: 16 October 2026</p>
+<p class="lead">Short version: we collect no personal data, we set no cookies, and the app has no telemetry. Your videos, transcripts and clips stay on your Mac. The site only remembers your theme choice, in your own browser.</p>
+<h2>The app</h2>
+<p>OpenClip is a native macOS application that runs entirely on your device. It has no accounts, no telemetry, no crash reporting and no cloud features. Videos, transcripts, face data, edits and exports stay on your computer. Transcription, face detection, clip scoring, captions and encoding all happen locally. The app makes two kinds of network request, both optional: a download of a speech-recognition model (see below) and a check of GitHub for a newer release.</p>
+<h2>Claude and the local MCP server</h2>
+<p>OpenClip ships a local MCP server, <code>openclip-mcp</code>. It is started on your Mac by Claude Desktop or Claude Code over standard input and output, and nothing is hosted by us. If you ask Claude to find clips, the assistant you chose receives the clip candidates and any transcript text it requests, and sends them to that service. That is your choice and is governed by that service's terms and privacy policy. OpenClip itself sends nothing. If you never connect an assistant, the built-in Quick pick scores moments entirely on your Mac.</p>
+<h2>This website</h2>
+<p>This website is hosted on Cloudflare Pages. Cloudflare processes ordinary server logs (such as IP addresses) to deliver and secure the site, as described in the <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare Privacy Policy</a>. We do not add analytics, advertising, social-media trackers or embedded third-party widgets, and the site loads no external fonts or scripts. If you pick a theme, that choice is saved in your browser's local storage on your device only (see the <a href="/cookies">cookie policy</a>).</p>
+<h2>GitHub star count</h2>
+<p>The star count in the header is fetched by our own server from GitHub's public API and cached for an hour. Your browser only talks to this site; GitHub never sees your IP address from that request.</p>
+<h2>Downloads</h2>
+<p>The installer is served from GitHub. GitHub may process your IP address when you download; see the <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub Privacy Statement</a>.</p>
+<h2>Update check</h2>
+<p>The app can ask GitHub whether a newer release exists. It never downloads or installs anything by itself.</p>
+<h2>Optional model download</h2>
+<p>The first time you transcribe a video, the app downloads a Whisper model file from Hugging Face. That request is made directly from your device to Hugging Face, whose <a href="https://huggingface.co/privacy" rel="noopener">privacy policy</a> applies. No audio or project data is sent.</p>
+<h2>Your rights</h2>
+<p>Because we hold no personal data about you, there is nothing to access, correct or delete. If you contact us (for example by opening a GitHub issue), the content you submit is handled by GitHub under its terms.</p>
+<h2>Children</h2>
+<p>The site and app are not directed at children and we do not knowingly collect any personal information.</p>
+<h2>Changes</h2>
+<p>If this policy changes, the date above will be updated and the change recorded in the public repository history.</p>
+<h2>Contact</h2>
+<p>Open an issue at <a href="https://github.com/%REPO%/issues" target="_blank" rel="noopener noreferrer">github.com/%REPO%</a>.</p>
+</article></div>
+</main>
+<!--@footer-->
+</body>
+</html>

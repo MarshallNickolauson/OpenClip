@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenClip — long talks in, vertical clips out</title>
+<meta name="description" content="OpenClip is a free, open-source macOS app that turns a long 16:9 video into 9:16 vertical clips: on-device transcription, a face-following camera, burned-in captions, and Claude to pick the moments. Nothing leaves your Mac.">
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <h1>Long talks in, vertical clips out.</h1>
+    <p class="sub">Drop in a 30-minute sermon, talk or podcast. OpenClip transcribes it on your Mac, finds the moments that stand on their own, follows the speaker's face, burns in captions and exports 9:16 clips. Free, open source, and nothing is uploaded.</p>
+    <div class="cta">
+      <a class="btn" href="/download"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.500-4.500M12 15l4.500-4.500M4 20h16"/></svg><span>Download for macOS</span></a>
+      <a class="btn btn-quiet" href="/docs/">Read the docs</a>
+    </div>
+    <p class="trust">macOS 13+. MIT license. No account, no watermark, no upload.</p>
+    <div class="hero-demo">
+      <div class="win">
+        <img src="/img/editor.jpg" width="1400" height="845" alt="The OpenClip editor: a vertical 9:16 preview, the list of suggested clips and a timeline with waveform, words and captions">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Wide in, tall out.</h2>
+    <figure class="crop-fig" style="margin:0">
+      <svg viewBox="0 0 320 180" role="img" aria-label="A 16:9 frame with the speaker off to the left and a 9:16 crop window centred on them">
+        <rect class="cf-src" x="0.5" y="0.5" width="319" height="179"/>
+        <circle class="cf-person" cx="118" cy="62" r="20"/>
+        <path class="cf-person" d="M72 180c0-34 20-54 46-54s46 20 46 54z"/>
+        <rect class="cf-shade" x="0.5" y="0.5" width="68" height="179"/>
+        <rect class="cf-shade" x="170" y="0.5" width="149.500" height="179"/>
+        <rect class="cf-crop" x="68" y="1" width="101.250" height="178"/>
+        <path class="cf-corner" d="M68 14V1h13M156 1h13v13M169 166v13h-13M81 179H68v-13"/>
+        <text class="cf-text" x="244" y="94">16:9 SOURCE</text>
+      </svg>
+      <span class="crop-arrow" aria-hidden="true"><svg viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h58M50 4l10 8-10 8"/></svg></span>
+      <svg viewBox="0 0 101 180" role="img" aria-label="The resulting 9:16 clip with a captioned word highlighted">
+        <defs><clipPath id="ph"><rect x="0.5" y="0.5" width="100" height="179" rx="6"/></clipPath></defs>
+        <rect class="cf-out" x="0.5" y="0.5" width="100" height="179" rx="6"/>
+        <g clip-path="url(#ph)"><circle class="cf-person" cx="50" cy="62" r="19"/>
+        <path class="cf-person" d="M2 190c0-40 20-62 48-62s48 22 48 62z"/></g>
+        <text class="cf-cap" x="50" y="150">YOU CAN <tspan class="cf-hl" fill="#ffe14a">START</tspan></text>
+      </svg>
+      <figcaption><span>Source, 1920 × 1080</span><span>Clip, 1080 × 1920</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec steps" id="how">
+  <div class="wrap">
+    <h2>Just 3 Steps.</h2>
+    <ol class="flow">
+      <li class="step"><h3>Drop</h3><p>Drop a video in. It is transcribed and faces are found, on your Mac.</p></li>
+      <li class="step"><h3>Pick</h3><p>Claude, or the built-in Quick pick, suggests 5 to 10 moments. Arrow through them in a real 9:16 player.</p></li>
+      <li class="step"><h3>Export</h3><p>Tick the clips you like and export them all in one batch.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap rows">
+    <div class="row">
+      <div class="row-text"><h2>Suggested clips, ready to play</h2><p>Every suggestion opens in a real vertical player and autoplays as you arrow through the list. Tick the keepers, dismiss the rest, and trim any clip on its own timeline with waveform, words and word-snapping edges.</p></div>
+      <div class="frame"><img src="/img/editor.jpg" width="1400" height="845" alt="The OpenClip editor with the suggested clips list, a 9:16 preview and the clip timeline" loading="lazy"></div>
+    </div>
+    <div class="row flip">
+      <div class="row-text"><h2>A camera that follows the face</h2><p>The virtual camera holds still while the speaker stays centred, glides when they move, and cuts when your source cuts between cameras. Choose who to follow, set the zoom, nudge it, or drop keyframes by dragging the preview.</p></div>
+      <div class="frame"><img src="/img/framing.jpg" width="1400" height="845" alt="The framing panel with follow target, zoom and keyframe controls over a 9:16 preview" loading="lazy"></div>
+    </div>
+    <div class="row">
+      <div class="row-text"><h2>Captions burned in, made on your Mac</h2><p>Transcription runs on whisper.cpp with the Metal GPU. Pick the Pop, Boxed or Clean look, highlight the spoken word, set size, position and colour, and fix a word by double-clicking it.</p></div>
+      <div class="frame"><img src="/img/captions.jpg" width="1400" height="845" alt="The captions panel with style, size, position and highlight controls" loading="lazy"></div>
+    </div>
+    <div class="row flip">
+      <div class="row-text"><h2>Batch export, hardware encoded</h2><p>1080×1920 or 720×1280, H.264 or HEVC with AAC audio, up to 30 fps. Encoding goes through the Mac's own AVFoundation and VideoToolbox, so there is no bundled codec to license.</p></div>
+      <div class="frame"><img src="/img/export.jpg" width="1400" height="845" alt="The export tab with resolution, codec and the ticked clips" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Claude picks the moments</h2>
+    <dl class="deflist">
+      <div><dt>Local MCP server</dt><dd><code>openclip-mcp</code> ships inside the app. Claude Desktop or Claude Code launches it on your Mac over stdio. Nothing is hosted, and there is no account or API key.</dd></div>
+      <div><dt>Cheap on tokens</dt><dd>Claude reads about twenty pre-ranked, sentence-aligned candidates instead of the whole transcript: a few thousand tokens regardless of video length, in two calls.</dd></div>
+      <div><dt>Clips appear live</dt><dd>Claude saves clips by sentence id and they show up in the app as it works. No Claude? Quick pick scores the moments locally.</dd></div>
+    </dl>
+    <p class="more-link"><a href="/docs/connect-claude">Connect Claude</a></p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>The rest of the app</h2>
+    <dl class="deflist">
+      <div><dt>Jump cuts</dt><dd>One toggle removes the silences between sentences, in the preview and in the export.</dd></div>
+      <div><dt>Clip timeline</dt><dd>Waveform, words, caption blocks and the framing path. Drag edges with word snapping, step by sentence, set in and out.</dd></div>
+      <div><dt>Choose a model</dt><dd>Fast (base.en), Balanced (small.en) or Best (large-v3-turbo). Downloaded once, only when you ask.</dd></div>
+      <div><dt>Native app</dt><dd>Rust and egui. No web view, no Electron. Captions are drawn with Core Image and CoreText.</dd></div>
+      <div><dt>Plain project folders</dt><dd>Projects live in <code>~/OpenClip Projects/</code> and exports go to <code>~/Movies/OpenClip</code>. Edits stay in memory until you save.</dd></div>
+      <div><dt>Undo everywhere</dt><dd>Undo and redo across trims, captions and framing, plus an unsaved-changes marker.</dd></div>
+    </dl>
+    <p class="more-link"><a href="/features">See every feature</a></p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>What people make with it</h2>
+    <dl class="deflist">
+      <div><dt>Sermon clips</dt><dd>Turn the Sunday service into a week of short, shareable moments.</dd></div>
+      <div><dt>Podcast highlights</dt><dd>Pull the strongest exchanges out of a long recording with captions already on.</dd></div>
+      <div><dt>Talks and lectures</dt><dd>Cut a conference talk into self-contained ideas.</dd></div>
+      <div><dt>Interviews</dt><dd>Follow whoever is speaking and drop the dead air with jump cuts.</dd></div>
+      <div><dt>Webinars</dt><dd>Reuse the best answers from a long Q&amp;A as vertical shorts.</dd></div>
+      <div><dt>Training videos</dt><dd>Split a long session into short, single-topic clips.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Why clip locally</h2>
+    <div class="compare-wrap">
+      <table class="compare">
+        <thead><tr><th></th><th>OpenClip</th><th>Cloud clipping tools</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Price</th><td>Free, MIT licensed</td><td>Often a subscription</td></tr>
+          <tr><th scope="row">Watermark</th><td>Never</td><td>Often on free tiers</td></tr>
+          <tr><th scope="row">Account</th><td>None</td><td>Usually required</td></tr>
+          <tr><th scope="row">Where footage goes</th><td>Stays on your Mac</td><td>Uploaded for processing</td></tr>
+          <tr><th scope="row">Transcription</th><td>On-device, whisper.cpp</td><td>Often cloud transcription</td></tr>
+          <tr><th scope="row">Picking moments</th><td>Claude through a local MCP server, or Quick pick</td><td>Built-in, hosted</td></tr>
+          <tr><th scope="row">Source code</th><td>Open on GitHub</td><td>Closed</td></tr>
+          <tr><th scope="row">Works offline</th><td>Yes, after the optional model download</td><td>No</td></tr>
+          <tr><th scope="row">Project files</th><td>Plain folders you own</td><td>Tied to an account</td></tr>
+          <tr><th scope="row">Telemetry</th><td>None</td><td>Often collected</td></tr>
+          <tr><th scope="row">Platforms</th><td>macOS</td><td>Browser</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine">A general comparison, not a claim about any one product. Check any tool's current terms before you choose.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Fast enough to stay in flow</h2>
+    <dl class="deflist">
+      <div><dt>Import</dt><dd>A 75-minute, 2 GB 720p sermon was transcribed and its faces found in about 8.5 minutes. Transcription ran near 9× realtime on small.en.</dd></div>
+      <div><dt>Export</dt><dd>A 32-second clip exported in about 12 seconds, roughly 2 to 3× realtime.</dd></div>
+    </dl>
+    <p class="fine">Measured on an M-series Mac. Your numbers depend on the chip, the model and the source video.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Quick keys in the editor</h2>
+    <ul class="keys">
+      <li><span><kbd>Space</kbd></span> Play and pause.</li>
+      <li><span><kbd>↑</kbd> <kbd>↓</kbd></span> Previous or next clip.</li>
+      <li><span><kbd>X</kbd> <kbd>Return</kbd></span> Tick the clip for export.</li>
+      <li><span><kbd>[</kbd> <kbd>]</kbd></span> Set the clip's in and out points.</li>
+      <li><span><kbd>T</kbd></span> Toggle jump cuts.</li>
+      <li><span><kbd>⌘</kbd> <kbd>E</kbd></span> Export.</li>
+    </ul>
+    <p class="more-link"><a href="/docs/shortcuts">All shortcuts</a></p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>What's new</h2>
+    <div class="whatsnew"><!--@whatsnew--></div>
+    <p class="more-link"><a href="/changelog">Full changelog</a></p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap oss">
+    <h2>Built in the open</h2>
+    <p>The whole app and this website live in one repository. Read it, file an issue, or send a fix. OpenClip is a sibling of <a href="https://getscreencraft.pages.dev" target="_blank" rel="noopener noreferrer">ScreenCraft</a>, the open-source screen recorder and editor.</p>
+    <div class="cta"><a class="btn btn-quiet" href="https://github.com/%REPO%" target="_blank" rel="noopener noreferrer">View on GitHub</a><a class="btn btn-quiet" href="https://github.com/%REPO%/issues" target="_blank" rel="noopener noreferrer">Report an issue</a><a class="btn btn-quiet" href="/third-party-notices">Third-party notices</a></div>
+  </div>
+</section>
+
+<section class="sec stance">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="stance-text">Free under the MIT license. No account, no telemetry, no cloud rendering. Everything is transcribed, framed, captioned and exported on your own Mac, by a native Rust app.</p>
+  </div>
+</section>
+
+<section class="closer">
+  <div class="wrap">
+    <div><h2>Turn your next talk into a week of clips.</h2>
+    <p>Free for macOS. Download it, drop a video in.</p></div>
+    <div class="cta"><a class="btn" href="/download"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.500-4.500M12 15l4.500-4.500M4 20h16"/></svg><span>Downloads</span></a></div>
+  </div>
+</section>
+</main>
+<!--@footer-->
+</body>
+</html>

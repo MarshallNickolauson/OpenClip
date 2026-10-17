@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Features | OpenClip</title>
+<meta name="description" content="Everything OpenClip can do: transcription, Claude clip picking, face-following 9:16 framing, captions, jump cuts and batch export.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main">
+<div class="wrap"><article class="prose wide">
+<h1>Everything in OpenClip</h1>
+<p class="lead">One native Mac app that turns a long 16:9 video into vertical clips: transcribe, pick, frame, caption, export. Here is the complete list, grouped by what you are trying to do.</p>
+<h2 id="import">Import and transcribe</h2>
+<dl class="deflist">
+<div><dt>Drop a video</dt><dd>Drag in a long 16:9 recording, such as a church service, talk or podcast. Projects are saved as plain folders in <code>~/OpenClip Projects/</code>.</dd></div>
+<div><dt>On-device transcription</dt><dd>whisper.cpp runs on the Metal GPU and returns word-level timestamps. Choose Fast (base.en), Balanced (small.en) or Best (large-v3-turbo). The model is downloaded once from Hugging Face, only on request.</dd></div>
+<div><dt>Faces in parallel</dt><dd>Apple Vision finds faces while the transcript is being made, so the camera is ready when the text is.</dd></div>
+<div><dt>Measured speed</dt><dd>A 75-minute, 2 GB 720p sermon was transcribed and its faces found in about 8.5 minutes on an M-series Mac. Transcription ran near 9× realtime on small.en.</dd></div>
+</dl>
+<h2 id="pick">Pick the moments</h2>
+<dl class="deflist">
+<div><dt>Claude, through a local MCP server</dt><dd><code>openclip-mcp</code> ships inside the app. Claude Desktop or Claude Code launches it on your Mac and picks the clips that work on their own. Nothing is hosted and there is no account or API key.</dd></div>
+<div><dt>Quick pick</dt><dd>No Claude? A built-in scorer suggests the 5 to 10 best moments locally.</dd></div>
+<div><dt>A real 9:16 player</dt><dd>Each suggestion plays in a vertical preview and autoplays as you arrow through the list. Tick the keepers with <kbd>X</kbd>, dismiss the rest with <kbd>⌫</kbd>.</dd></div>
+</dl>
+<h2 id="timeline">Clip timeline</h2>
+<dl class="deflist">
+<div><dt>Waveform, words and captions</dt><dd>Each clip has its own timeline with the waveform, the spoken words, caption blocks and the framing path.</dd></div>
+<div><dt>Trim with word snapping</dt><dd>Drag the edges and they snap to word boundaries. Step by sentence, or set the in and out points with <kbd>[</kbd> and <kbd>]</kbd>.</dd></div>
+<div><dt>New clips by hand</dt><dd>Press <kbd>N</kbd> to start a clip anywhere in the video. Loop a clip with <kbd>L</kbd>.</dd></div>
+<div><dt>Zoom and undo</dt><dd>⌘-scroll zooms the timeline. Undo and redo cover trims, captions and framing.</dd></div>
+</dl>
+<h2 id="framing">Framing</h2>
+<dl class="deflist">
+<div><dt>Face-following virtual camera</dt><dd>Holds still while the speaker stays centred, glides when they move, and cuts when the source cuts between cameras.</dd></div>
+<div><dt>You stay in control</dt><dd>Choose who to follow (closest, left or right), set the zoom, nudge the frame, and add keyframes by dragging the preview or clicking the framing track.</dd></div>
+</dl>
+<h2 id="captions">Captions</h2>
+<dl class="deflist">
+<div><dt>Three looks</dt><dd>Pop, Boxed and Clean, burned into the video.</dd></div>
+<div><dt>Spoken-word highlight</dt><dd>The word being spoken is highlighted. Set size, position, words per line and colour.</dd></div>
+<div><dt>Fix a word</dt><dd>Double-click any caption word to correct it.</dd></div>
+</dl>
+<h2 id="cuts">Jump cuts</h2>
+<dl class="deflist">
+<div><dt>One toggle, key T</dt><dd>Removes silences between sentences, in the preview and in the export. Pauses longer than 0.6 s are cut, keeping 0.26 s before speech resumes and 0.14 s after a phrase ends.</dd></div>
+</dl>
+<h2 id="export">Export</h2>
+<dl class="deflist">
+<div><dt>Batch export</dt><dd>Tick the clips and export them together with <kbd>⌘</kbd><kbd>E</kbd>. Defaults to <code>~/Movies/OpenClip</code>.</dd></div>
+<div><dt>Formats</dt><dd>1080×1920 or 720×1280, H.264 or HEVC, AAC audio, up to 30 fps.</dd></div>
+<div><dt>OS-licensed encoders only</dt><dd>Encoding uses AVFoundation and VideoToolbox. There is no ffmpeg and no openh264 in the app. Captions are drawn with Core Image and CoreText.</dd></div>
+<div><dt>Measured speed</dt><dd>A 32-second clip exported in about 12 seconds, roughly 2 to 3× realtime, on an M-series Mac.</dd></div>
+</dl>
+<h2 id="private">Private by design</h2>
+<dl class="deflist">
+<div><dt>Everything on-device</dt><dd>No telemetry. The only network use is the optional model download from Hugging Face and the optional GitHub update check.</dd></div>
+<div><dt>Open source</dt><dd>MIT licensed, written in Rust with egui. No web view, no Electron.</dd></div>
+</dl>
+<p><a class="btn" href="/download">Download OpenClip</a></p>
+</article></div>
+</main>
+<!--@footer-->
+</body>
+</html>

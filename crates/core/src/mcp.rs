@@ -1,6 +1,6 @@
 //! A tiny, dependency-free MCP server over stdio.
 //!
-//! Claude launches `clipcraft-mcp` itself (Claude Desktop / Claude Code), so there is nothing to
+//! Claude launches `openclip-mcp` itself (Claude Desktop / Claude Code), so there is nothing to
 //! host or deploy. Tools are designed to keep token use low: ranked, sentence-aligned candidates
 //! instead of the full transcript, ids instead of timestamps, plain text instead of JSON.
 
@@ -12,8 +12,8 @@ use serde_json::{json, Value};
 use std::io::{BufRead, Write};
 use std::path::{Path, PathBuf};
 
-const INSTRUCTIONS: &str = "ClipCraft turns a long 16:9 talk (e.g. a church service) into 9:16 clips. \
-The video is already transcribed in the ClipCraft app. Workflow: (1) get_candidates returns ~20 locally pre-ranked, sentence-aligned moments with their text; \
+const INSTRUCTIONS: &str = "OpenClip turns a long 16:9 talk (e.g. a church service) into 9:16 clips. \
+The video is already transcribed in the OpenClip app. Workflow: (1) get_candidates returns ~20 locally pre-ranked, sentence-aligned moments with their text; \
 (2) choose the 5-10 that work completely on their own: a strong first line, one complete idea, a payoff at the end, 20-75 seconds; \
 (3) save_clips with the sentence ids (from/to), a short title and a one-line reason. The clips appear live in the app for the user to preview, caption and export. \
 Only call get_transcript when candidates look weak or the user asks about a specific topic or time range. Never paste transcript text back to the user; confirm briefly.";
@@ -22,7 +22,7 @@ fn tools() -> Value {
     json!([
       {
         "name": "list_projects",
-        "description": "List ClipCraft projects (id, title, length, clip counts). Usually unnecessary: tools default to the project open in the app.",
+        "description": "List OpenClip projects (id, title, length, clip counts). Usually unnecessary: tools default to the project open in the app.",
         "inputSchema": {"type":"object","properties":{}}
       },
       {
@@ -48,7 +48,7 @@ fn tools() -> Value {
       },
       {
         "name": "save_clips",
-        "description": "Save chosen clips. They show up in the ClipCraft app immediately. Boundaries snap to sentence starts/ends with a little breathing room. Pass `id` (from get_clips) to revise a clip you saved earlier.",
+        "description": "Save chosen clips. They show up in the OpenClip app immediately. Boundaries snap to sentence starts/ends with a little breathing room. Pass `id` (from get_clips) to revise a clip you saved earlier.",
         "inputSchema": {"type":"object","required":["clips"],"properties":{
           "project":{"type":"string"},
           "clips":{"type":"array","items":{"type":"object","required":["from","to","title"],"properties":{
@@ -72,7 +72,7 @@ fn tools() -> Value {
 fn prompts() -> Value {
     json!([{
       "name": "find_clips",
-      "description": "Find the best vertical clips in the current ClipCraft project.",
+      "description": "Find the best vertical clips in the current OpenClip project.",
       "arguments": [
         {"name":"count","description":"How many clips (default 5-10)","required":false},
         {"name":"focus","description":"Optional theme or audience to favour","required":false}
@@ -99,7 +99,7 @@ fn load(args: &Value) -> Result<Loaded, String> {
     let dir = store::resolve(which)?;
     let p = store::load_project(&dir)?;
     if !p.transcribed {
-        return Err(format!("\"{}\" is still being transcribed in ClipCraft. Try again in a minute.", p.title));
+        return Err(format!("\"{}\" is still being transcribed in OpenClip. Try again in a minute.", p.title));
     }
     let t: Transcript = store::load_transcript(&dir)?;
     let sents = sentences(&t.words);
@@ -136,7 +136,7 @@ fn overlaps_existing(dir: &Path, t0: u32, t1: u32) -> bool {
 fn tool_list_projects() -> Result<Value, String> {
     let all = store::list();
     if all.is_empty() {
-        return Ok(text_result("No projects. Open ClipCraft and drop a video in."));
+        return Ok(text_result("No projects. Open OpenClip and drop a video in."));
     }
     let cur = std::fs::read_to_string(store::home().join("current")).unwrap_or_default();
     let mut s = String::new();
@@ -303,7 +303,7 @@ fn tool_save(args: &Value) -> Result<Value, String> {
         return Err(format!("Nothing saved.\n{report}"));
     }
     store::save_suggestions(&l.dir, &sug)?;
-    Ok(text_result(format!("Saved {saved} clip(s) to \"{}\". They are live in the ClipCraft app.\n{report}", l.title)))
+    Ok(text_result(format!("Saved {saved} clip(s) to \"{}\". They are live in the OpenClip app.\n{report}", l.title)))
 }
 
 fn tool_get_clips(args: &Value) -> Result<Value, String> {
@@ -358,7 +358,7 @@ pub fn handle(msg: &Value) -> Option<Value> {
             ok(json!({
                 "protocolVersion": ver,
                 "capabilities": {"tools": {}, "prompts": {}},
-                "serverInfo": {"name": "clipcraft", "version": env!("CARGO_PKG_VERSION")},
+                "serverInfo": {"name": "openclip", "version": env!("CARGO_PKG_VERSION")},
                 "instructions": INSTRUCTIONS
             }))
         }
@@ -373,7 +373,7 @@ pub fn handle(msg: &Value) -> Option<Value> {
         "prompts/get" => {
             let a = params.get("arguments").cloned().unwrap_or(json!({}));
             let count = a.get("count").and_then(Value::as_str).unwrap_or("5-10");
-            let mut t = format!("Find the {count} best vertical clips in my current ClipCraft project: call get_candidates, choose moments that stand completely on their own, then save_clips. Keep it brief.");
+            let mut t = format!("Find the {count} best vertical clips in my current OpenClip project: call get_candidates, choose moments that stand completely on their own, then save_clips. Keep it brief.");
             if let Some(f) = a.get("focus").and_then(Value::as_str).filter(|s| !s.is_empty()) {
                 t.push_str(&format!(" Favour: {f}."));
             }
@@ -422,7 +422,7 @@ mod tests {
     fn end_to_end_with_a_project() {
         let tmp = std::env::temp_dir().join(format!("cc-test-{}", new_id("")));
         std::env::set_var("CLIPCRAFT_HOME", &tmp);
-        let dir = tmp.join("t.clipcraft");
+        let dir = tmp.join("t.openclip");
         std::fs::create_dir_all(&dir).unwrap();
         let mut p = crate::project::Project { id: "p1".into(), title: "Test talk".into(), transcribed: true, ..Default::default() };
         p.source.duration_ms = 100_000;

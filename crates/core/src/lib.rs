@@ -1,4 +1,4 @@
-//! ClipCraft core: pure Rust, no platform code. The app shell and the MCP server both build on it.
+//! OpenClip core: pure Rust, no platform code. The app shell and the MCP server both build on it.
 
 pub mod captions;
 pub mod framing;

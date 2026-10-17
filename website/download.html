@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Downloads | OpenClip</title>
+<meta name="description" content="Download OpenClip for macOS (.dmg). Free, open source, no account.">
+
+<script src="/theme.js"></script>
+</head>
+<body>
+<!--@header-->
+<main id="main" class="wrap">
+  <div class="page-head">
+    <h1>Download OpenClip</h1>
+    <p>A free, open-source macOS app that turns long talks into vertical clips. No account, no watermark, no subscription. Version %VERSION%.</p>
+  </div>
+  <div class="osrow" style="grid-template-columns:1fr">
+    <div class="os" id="macos">
+      <h2>macOS</h2>
+      <div class="meta">macOS 13 or later · Apple silicon tested · .dmg</div>
+      <a class="btn" href="%DMG_URL%">Download %DMG%</a>
+      <ol>
+        <li>Open <code>%DMG%</code> and drag OpenClip to Applications.</li>
+        <li>The app is ad-hoc signed and not notarised. The first time, <b>right-click OpenClip and choose Open</b>, then confirm. (Or run <code>xattr -dr com.apple.quarantine /Applications/OpenClip.app</code> in Terminal.)</li>
+        <li>Drop a video in. The speech model downloads once, the first time you ask for a transcript.</li>
+      </ol>
+      <p class="cmd-l">Prefer one command? It downloads the disk image with curl, copies the app to Applications and opens it:</p>
+      <div class="cmd"><code id="installCmd">curl -fsSL %HOST%/install.sh | bash</code><button type="button" class="cmd-copy" data-copy="#installCmd" aria-label="Copy command">Copy</button></div>
+    </div>
+  </div>
+  <div class="note warn"><b>Early alpha.</b> OpenClip is macOS only for now and has had limited testing. Please report problems on GitHub.</div>
+  <div class="note">Prefer to build it yourself? OpenClip is MIT licensed. See the <a href="/docs/getting-started">getting started guide</a> or the <a href="https://github.com/%REPO%" target="_blank" rel="noopener noreferrer">source on GitHub</a>.</div>
+</main>
+
+</main>
+<!--@footer-->
+</body>
+</html>
